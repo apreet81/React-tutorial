@@ -11,21 +11,32 @@ class Persons extends Component {
   //   console.log("[Persons.js] componentWillReceiveProps", props);
   // };
 
+  // Validate if change should be processed or not.
+  // Available only in class based components.
   shouldComponentUpdate(nextProps, nextState) {
     console.log("[Persons.js] shouldComponentUpdate");
-    return true;
+    if (
+      nextProps.persons !== this.props.persons ||
+      nextProps.changed !== this.props.changed ||
+      nextProps.clicked !== this.props.clicked
+    ) {
+      return true; 
+    }
   }
 
+  // Store snapshot before reflecting change to state.
   getSnapshotBeforeUpdate(prevProps, prevState) {
     console.log("[Persons.js] getSnapshotBeforeUpdate");
     return { message: "Snapshot!" };
   }
 
+  // Hook executed after change is complete.
   componentDidUpdate(prevProps, prevState, snapshot) {
     console.log("[Persons.js] componentDidUpdate");
     console.log(snapshot);
   }
 
+  // Hook execute just before unmounting the component.
   componentWillUnmount() {
     console.log("[Persons.js] componentWillUnmount");
   }

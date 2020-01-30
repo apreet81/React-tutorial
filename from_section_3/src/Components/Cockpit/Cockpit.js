@@ -2,20 +2,24 @@ import React, { useEffect } from "react";
 import classes from "./Cockpit.css";
 
 const cockpit = props => {
+
+  // React hook available in functional components, executed if there is any change in state
+  // Or when state is initially loaded, using this we can trace change in all states as well as particular
+  // Particular state.
   useEffect(() => {
     console.log("[Cockpit.js] useEffect");
     setTimeout(() => {
       alert("Saved data to cloud!");
     }, 1000);
-    return ()=>{
+    return () => {
       console.log("[Cockpit.js] clean up work in useEffect");
     };
   }, []);
 
-  useEffect(()=>{
-    console.log('[Cockpit.js] 2nd useEffect');
-    return()=>{
-      console.log('[Cockpit.js] cleanup work in 2nd useEffect');
+  useEffect(() => {
+    console.log("[Cockpit.js] 2nd useEffect");
+    return () => {
+      console.log("[Cockpit.js] cleanup work in 2nd useEffect");
     };
   });
 
