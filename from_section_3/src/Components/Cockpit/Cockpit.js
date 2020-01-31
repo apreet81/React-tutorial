@@ -1,16 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import classes from "./Cockpit.css";
 
 const cockpit = props => {
+  const toggleBtnRef = useRef(null);
 
   // React hook available in functional components, executed if there is any change in state
   // Or when state is initially loaded, using this we can trace change in all states as well as particular
   // Particular state.
+  // It is executed after the execution cycle and available in functional components.
   useEffect(() => {
     console.log("[Cockpit.js] useEffect");
-    setTimeout(() => {
-      alert("Saved data to cloud!");
-    }, 1000);
+    toggleBtnRef.current.click();
+
     return () => {
       console.log("[Cockpit.js] clean up work in useEffect");
     };
@@ -42,7 +43,7 @@ const cockpit = props => {
     <div className={classes.Cockpit}>
       <h1>{props.title}</h1>
       <p className={assignedClasses.join(" ")}>This is really working!!!</p>
-      <button className={btnClass} onClick={props.clicked}>
+      <button ref={toggleBtnRef} className={btnClass} onClick={props.clicked}>
         Toggle Persons
       </button>
     </div>
