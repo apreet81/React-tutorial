@@ -4,6 +4,7 @@ import Persons from "../Components/Persons/Persons";
 import Cockpit from "../Components/Cockpit/Cockpit";
 import withClass from "../hoc/withClass";
 import Aux from "../hoc/Auxiliary";
+import AuthContext from '../context/auth-context'
 
 class App extends Component {
   constructor(props) {
@@ -27,7 +28,9 @@ class App extends Component {
       { id: "3", name: "Stephanie", age: 26 }
     ],
     showPersons: false,
-    changeCounter: 0
+    changeCounter: 0,
+    showCockpit: true,
+    authenticated: false
   };
 
   // Executed just after the constructor isn executed and before render method.
@@ -102,6 +105,10 @@ class App extends Component {
     this.setState({ showPersons: !doesShow });
   };
 
+  loginHandler = () => {
+    this.setState({ authenticated: true });
+  };
+
   render() {
     console.log("[App.js] render");
     let persons = null;
@@ -119,14 +126,21 @@ class App extends Component {
 
     return (
       <Aux>
-        <Cockpit
-          title={this.props.appTitle}
-          showPersons={this.state.showPersons}
-          personsLength={this.state.persons.length}
-          clicked={this.togglePersonHandler}
-        />
-        {persons}
-      </Aux>
+        <button onClick={() => { this.setState({ showCockpit: false }) }}>
+          Remove Cockpit
+          </button>
+        <AuthContext.Provider value={{ authenticated: this.state.authenticated, login: this.loginHandler }}>
+          {this.state.showCockpit ? (
+            <Cockpit
+              title={this.props.appTitle}
+              showPersons={this.state.showPersons}
+              personsLength={this.state.persons.length}
+              clicked={this.togglePersonHandler}
+              login={this.loginHandler}
+            />) : null}
+          {persons}
+        </AuthContext.Provider>
+      </Aux >
     );
   }
 }

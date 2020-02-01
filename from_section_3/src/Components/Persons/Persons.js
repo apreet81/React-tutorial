@@ -18,10 +18,12 @@ class Persons extends Component {
     if (
       nextProps.persons !== this.props.persons ||
       nextProps.changed !== this.props.changed ||
-      nextProps.clicked !== this.props.clicked
+      nextProps.clicked !== this.props.clicked ||
+      nextProps.isAuthenticated !== this.props.isAuthenticated
     ) {
-      return true; 
+      return true;
     }
+    return false;
   }
 
   // Store snapshot before reflecting change to state.
