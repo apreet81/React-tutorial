@@ -1,9 +1,12 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useContext } from "react";
 import classes from "./Cockpit.css";
 import AuthContext from "../../context/auth-context";
 
 const cockpit = props => {
   const toggleBtnRef = useRef(null);
+  const authcontext=useContext(AuthContext);
+
+  console.log(authcontext.authenticated);
 
   // React hook available in functional components, executed if there is any change in state
   // Or when state is initially loaded, using this we can trace change in all states as well as particular
@@ -47,9 +50,7 @@ const cockpit = props => {
       <button ref={toggleBtnRef} className={btnClass} onClick={props.clicked}>
         Toggle Persons
       </button>
-      <AuthContext.Consumer>
-        {(context) => <button onClick={context.login}>Login</button>}
-      </AuthContext.Consumer>
+        <button onClick={authcontext.login}>Login</button>
     </div>
   );
 };
