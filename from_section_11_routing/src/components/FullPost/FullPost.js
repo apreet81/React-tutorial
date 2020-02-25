@@ -13,7 +13,7 @@ class FullPost extends Component {
         !this.state.loadedPost ||
         (this.state.loadedPost && this.state.loadedPost.id !== this.props.id)
       ) {
-        this.state.loadedPost = null;
+        this.setState({ loadedPost: null });
         let url = "/posts/" + this.props.id;
         axios.get(url).then(response => {
           this.setState({ loadedPost: response.data });
@@ -23,11 +23,9 @@ class FullPost extends Component {
   }
 
   deletePostHandler = () => {
-    axios
-      .delete("/posts/" + this.props.id)
-      .then(response => {
-        console.log(response);
-      });
+    axios.delete("/posts/" + this.props.id).then(response => {
+      console.log(response);
+    });
   };
   render() {
     let post = <p style={{ textAlign: "center" }}>Please select a Post!</p>;
