@@ -22,7 +22,6 @@ class FullPost extends Component {
         (this.state.loadedPost &&
           this.state.loadedPost.id !== +this.props.match.params.id)
       ) {
-        this.setState({ loadedPost: null });
         let url = "/posts/" + this.props.match.params.id;
         axios.get(url).then(response => {
           this.setState({ loadedPost: response.data });
