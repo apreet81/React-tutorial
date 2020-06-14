@@ -23,8 +23,7 @@ const authFail = (error) => {
   };
 };
 
-const logout = () => {
-  debugger;
+export const logout = () => {
   return {
     type: actionTypes.AUTH_LOGOUT,
   };
@@ -33,7 +32,6 @@ const logout = () => {
 const checkAuthTimeOut = (expirationTime) => {
   return (dispatch) => {
     setTimeout(() => {
-      debugger;
       dispatch(logout());
     }, expirationTime * 1000);
   };
@@ -65,5 +63,12 @@ export const auth = (email, password, isSignup) => {
         console.log(err.response);
         dispatch(authFail(err.response.data.error));
       });
+  };
+};
+
+export const setAuthRedirectPath = (path) => {
+  return {
+    type: actionTypes.SET_AUTH_REDIRECT_PATH,
+    path: path,
   };
 };
