@@ -1,5 +1,5 @@
 import * as actionTypes from "../actions/actionTypes";
-import { updateObject } from "./utility";
+import { updateObject } from "../../shared/utility.js";
 
 const initialState = {
   token: null,
@@ -30,7 +30,6 @@ const authFail = (state, action) => {
 };
 
 const authLogout = (state, action) => {
-  debugger;
   return updateObject(state, { token: null, userId: null });
 };
 
