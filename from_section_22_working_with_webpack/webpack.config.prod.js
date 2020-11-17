@@ -3,14 +3,14 @@ const autoprefixer=require("autoprefixer");
 const HtmlWebpackPlugin=require("html-webpack-plugin");
 
 module.exports = {
-  mode: "development",
+  mode: "production",
   entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
     publicPath: "",
   },
-  devtools: "cheap-module-eval-source-map",
+  devtools: "none",
   module: {
     rules: [
       {
