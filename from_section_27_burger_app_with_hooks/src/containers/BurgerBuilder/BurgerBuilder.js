@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
 import Aux from "../../hoc/Auxiliary/Auxiliary";
@@ -14,9 +14,50 @@ import axios from "../../axios-orders";
 const BurgerBuilder = (props) => {
   const [purchasing, setPurchasing] = useState(false);
 
+  const { onInitIngredients } = props;
+
+  // const dispatch = useDispatch();
+
+  // const onIngredientAdded = useCallback(
+  //   (ingName) => dispatch(actions.addIngredient(ingName)),
+  //   [dispatch]
+  // );
+
+  // const onIngredientRemoved = useCallback((ingName) =>
+  //   dispatch(actions.removeIngredient(ingName), [dispatch])
+  // );
+
+  // const onInitIngredients = useCallback(() =>
+  //   dispatch(actions.initIngredients(), [dispatch])
+  // );
+  // const onInitPurchase = useCallback(
+  //   () => dispatch(actions.purchaseInit()),
+  //   [dispatch]
+  // );
+  // const onSetAuthRedirectPath = useCallback(
+  //   (path) => dispatch(actions.setAuthRedirectPath(path)),
+  //   [dispatch]
+  // );
+
+  // const ings = useSelector((state) => {
+  //   return state.burgerBuilder.ingredients;
+  // });
+
+  // const price = useSelector((state) => {
+  //   return state.burgerBuilder.totalPrice;
+  // });
+
+  // const error = useSelector((state) => {
+  //   return state.burgerBuilder.error;
+  // });
+
+  // const isAuthenticated = useSelector((state) => {
+  //   return state.auth.token !== null;
+  // });
+
   useEffect(() => {
-    props.onInitIngredients();
-  }, []);
+    onInitIngredients();
+  }, [onInitIngredients]);
 
   const updatePurchaseState = (ingredients) => {
     const sum = Object.keys(ingredients)
@@ -54,11 +95,7 @@ const BurgerBuilder = (props) => {
     disabledInfo[key] = disabledInfo[key] <= 0;
   }
   let orderSummary = null;
-  let burger = props.error ? (
-    <p>Ingredients can't be loaded..</p>
-  ) : (
-    <Spinner />
-  );
+  let burger = props.error ? <p>Ingredients can't be loaded..</p> : <Spinner />;
   if (props.ings) {
     burger = (
       <Aux>
@@ -86,10 +123,7 @@ const BurgerBuilder = (props) => {
   // {salad: true, meat: false, ...}
   return (
     <Aux>
-      <Modal
-        show={purchasing}
-        modalClosed={purchaseCancelHandler}
-      >
+      <Modal show={purchasing} modalClosed={purchaseCancelHandler}>
         {orderSummary}
       </Modal>
       {burger}
